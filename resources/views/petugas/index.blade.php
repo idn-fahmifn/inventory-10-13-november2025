@@ -83,6 +83,9 @@
                                             @default
                                         @endswitch
                                     </td>
+                                    <td>
+                                        <a href="" class="bg-blue-600 text-white font-semibold p-2 text-sm rounded-md hover:bg-blue-400">detail</a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
