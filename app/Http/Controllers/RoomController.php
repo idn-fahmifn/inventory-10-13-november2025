@@ -26,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        //
+        return redirect()->route('ruangan.index');
     }
 
     /**
@@ -73,7 +73,7 @@ class RoomController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return redirect()->route('ruangan.index');
     }
 
     /**
