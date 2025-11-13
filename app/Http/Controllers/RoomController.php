@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Room;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class RoomController extends Controller
 {
@@ -32,25 +34,38 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'nama_ruangan' => ['required', 'string', 'min:5', 'max:30'],
+            'kode_ruangan' => ['required', 'numeric', 'unique:rooms,room_code'],
+            'penanggung_jawab' => ['required', 'integer', Rule::exists('users', 'id')],
+            'deskripsi' => ['required']
+        ]);
+
         $simpan = [
             'room_name' => $request->input('nama_ruangan'),
             'room_code' => $request->input('kode_ruangan'),
             'user_id' => $request->input('penanggung_jawab'),
             'desc' => $request->input('deskripsi'),
-            'slug' => Str::slug($request->input('nama_ruangan'))
+            'slug' => Str::slug($request->input('nama_ruangan') . '_' . Carbon::now()->format('Ymdhis'))
         ];
 
         Room::create($simpan);
         return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil ditambahkan');
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($param)
     {
-        //
+
+        return view('room.detail', [
+            'data' => Room::where('slug', $param)->firstOrFail(),
+            
+            'pic' => User::where('is_admin', false)
+                ->where('is_active', true)->get()
+        ]);
+
     }
 
     /**

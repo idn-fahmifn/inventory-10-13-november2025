@@ -67,24 +67,16 @@
                             @forelse ($data as $item)
                                 <tr>
                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
-                                        {{ $item->name }}
+                                        {{ $item->room_name }}
                                     </td>
                                      <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
-                                        {{ $item->email }}
+                                        {{ $item->room_code }}
                                     </td>
-                                     <td class="px-6 py-4">
-                                        @switch($item->is_active)
-                                            @case(1)
-                                                <span class="bg-green-500 p-1 text-xs rounded-md">Petugas Active</span>
-                                                @break
-                                            @case(0)
-                                                <span class="bg-gray-500 p-1 text-xs rounded-md">Petugas Tidak Aktif</span>
-                                                @break
-                                            @default
-                                        @endswitch
+                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400"">
+                                        {{ $item->user->name }}
                                     </td>
                                     <td>
-                                        <a href="" class="bg-blue-600 text-white font-semibold p-2 text-sm rounded-md hover:bg-blue-400">detail</a>
+                                        <a href="{{ route('ruangan.show', $item->slug) }}" class="bg-blue-600 text-white font-semibold p-2 text-sm rounded-md hover:bg-blue-400">detail</a>
                                     </td>
                                 </tr>
                             @empty
