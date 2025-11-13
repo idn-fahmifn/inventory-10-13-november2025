@@ -6,6 +6,7 @@ use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
@@ -104,8 +105,10 @@ class RoomController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = Room::findOrFail($id);
+        $data->delete();
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil dihapus');
     }
 }
