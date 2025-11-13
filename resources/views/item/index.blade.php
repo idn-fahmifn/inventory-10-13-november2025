@@ -100,36 +100,55 @@
         <div class="p-6 w-[400px]">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4 border-b pb-2 dark:border-gray-700">
                 Input Barang Baru</h3>
-            <form method="POST" action="{{ route('barang.store') }}">
+            <form method="POST" action="{{ route('barang.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="space-y-4">
                     <div>
-                        <x-input-label value="Nama Ruangan" />
-                        <x-text-input name="nama_ruangan" type="text" class="mt-1 block w-full"
+                        <x-input-label value="Nama Barang" />
+                        <x-text-input name="nama_barang" type="text" class="mt-1 block w-full"
                             placeholder="Contoh: Ruang Server" required />
                     </div>
                     <div>
-                        <x-input-label value="Kode Ruangan" />
-                        <x-text-input name="kode_ruangan" type="number" class="mt-1 block w-full"
-                            placeholder="Contoh: 123 oke" required />
+                        <x-input-label value="Kode Barang" />
+                        <x-text-input name="kode_barang" type="number" class="mt-1 block w-full"
+                            placeholder="Contoh: 12345" required />
                     </div>
 
-
                     <div>
-                        <x-input-label value="Penanggung Jawab" />
-                        <select name="penanggung_jawab" required
+                        <x-input-label value="Penyimpanan" />
+                        <select name="room_id" required
                             class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                            <option value="">-Pilih Penanggung Jawab-</option>
+                            <option value="">-Pilih Tempat Penyimpanan-</option>
                             @foreach ($room as $item)
                                 <option value="{{ $item->id }}">{{ $item->room_name }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                     <div>
-                        <x-input-label value="Deskripsi Ruangan" />
-                        <textarea name="deskripsi" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"></textarea>
+                    <div>
+                        <x-input-label value="Kondisi Barang" />
+                        <select name="condition" required
+                            class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
+                            <option value="">-Kondisi-</option>
+                            <option value="good">Baik</option>
+                            <option value="broke">Rusak</option>
+                            <option value="maintenance">Perbaikan</option>
+                        </select>
                     </div>
+
+                    <div>
+                        <x-input-label value="Harga Barang" />
+                        <x-text-input name="harga" type="number" class="mt-1 block w-full"
+                            placeholder="Contoh: 30000" required />
+                    </div>
+
+                    <div>
+                        <x-input-label value="Gambar" />
+                        <x-text-input name="gambar" accept="image/*" type="file" class="mt-1 block w-full border p-4 border-dotted"
+                            placeholder="Contoh: 30000" required />
+                    </div>
+
+
 
                 </div>
 
