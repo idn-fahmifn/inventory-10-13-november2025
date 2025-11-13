@@ -1,6 +1,33 @@
 <x-app-layout>
     <div class="py-12">
         <div class="p-6 bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg">
+
+            @if ($errors->any())
+                <div class="bg-blue-100 border-t-4 border-red-500 rounded-b mb-4 text-red-900 px-4 py-3 shadow-md"
+                    role="alert" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)">
+                    <div class="flex">
+                        <div>
+                            <p class="font-bold">Data gagal dibuat.</p>
+                            @foreach ($errors->all() as $item)
+                                <p class="text-sm">{{ $item }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="bg-blue-100 border-t-4 border-green-500 rounded-b mb-4 text-green-900 px-4 py-3 shadow-md"
+                    role="alert" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">
+                    <div class="flex">
+                        <div>
+                            <p class="font-bold">Berhasil</p>
+                            <p class="text-sm">{{ session('success') }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <div class="max-w-4xl mx-auto">
 
                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-700 pb-2">
@@ -66,7 +93,7 @@
     </div>
 
     <x-modal name="show-edit" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('ruangan.update', $data->id) }}" class="p-6">
+        <form method="post" action="{{ route('barang.update', $data->id) }}" class="p-6">
             @csrf
             @method('put')
 
@@ -97,16 +124,18 @@
                     <x-input-label value="Kondisi Barang" />
                     <select name="kondisi" required
                         class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
-                        <option value="{{ $data->condion }}">
+                        <option value="{{ $data->condition }}">
                             @switch($data->condition)
                                 @case('good')
                                     Baik
                                 @break
+
                                 @case('broke')
                                     Rusak
                                 @break
+
                                 @default
-                                Sedang Diperbaiki
+                                    Sedang Diperbaiki
                             @endswitch
                         </option>
                         <option value="good">Baik</option>
@@ -117,8 +146,8 @@
 
                 <div>
                     <x-input-label value="Harga Barang" />
-                    <x-text-input name="harga" type="number" value="{{ $data->price }}" class="mt-1 block w-full" placeholder="Contoh: 30000"
-                        required />
+                    <x-text-input name="harga" type="number" value="{{ $data->price }}" class="mt-1 block w-full"
+                        placeholder="Contoh: 30000" required />
                 </div>
 
                 <div>
