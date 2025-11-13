@@ -61,7 +61,7 @@ class RoomController extends Controller
 
         return view('room.detail', [
             'data' => Room::where('slug', $param)->firstOrFail(),
-            
+
             'pic' => User::where('is_admin', false)
                 ->where('is_active', true)->get()
         ]);
@@ -79,9 +79,26 @@ class RoomController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Room::findOrFail($id);
+        $request->validate([
+            'nama_ruangan' => ['required', 'string', 'min:5', 'max:30'],
+            'kode_ruangan' => ['required', 'numeric'],
+            'penanggung_jawab' => ['required', 'integer', Rule::exists('users', 'id')],
+            'deskripsi' => ['required']
+        ]);
+
+        $simpan = [
+            'room_name' => $request->input('nama_ruangan'),
+            'room_code' => $request->input('kode_ruangan'),
+            'user_id' => $request->input('penanggung_jawab'),
+            'desc' => $request->input('deskripsi'),
+            'slug' => Str::slug($request->input('nama_ruangan') . '_' . Carbon::now()->format('Ymdhis'))
+        ];
+
+        $data->update($simpan);
+        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil ditambahkan');
     }
 
     /**
