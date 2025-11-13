@@ -64,6 +64,9 @@ class ItemController extends Controller
             $simpan['image'] = $nama;
         }
 
+        Item::create($simpan);
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dibuat');
+
     }
 
     /**
