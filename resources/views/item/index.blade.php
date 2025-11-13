@@ -67,16 +67,16 @@
                             @forelse ($data as $item)
                                 <tr>
                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
-                                        {{ $item->room_name }}
+                                        {{ $item->item_name }}
                                     </td>
                                      <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
-                                        {{ $item->room_code }}
+                                        {{ $item->item_code }}
                                     </td>
                                      <td class="px-6 py-4 text-gray-500 dark:text-gray-400"">
-                                        ruang tamu
+                                        {{ $item->room->room_name }}
                                     </td>
                                     <td>
-                                        <a href="{{ route('ruangan.show', $item->slug) }}" class="bg-blue-600 text-white font-semibold p-2 text-sm rounded-md hover:bg-blue-400">detail</a>
+                                        <a href="{{ route('barang.show', $item->slug) }}" class="bg-blue-600 text-white font-semibold p-2 text-sm rounded-md hover:bg-blue-400">detail</a>
                                     </td>
                                 </tr>
                             @empty
