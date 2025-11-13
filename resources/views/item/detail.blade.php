@@ -93,7 +93,7 @@
     </div>
 
     <x-modal name="show-edit" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('barang.update', $data->id) }}" class="p-6">
+        <form method="post" action="{{ route('barang.update', $data->id) }}" enctype="multipart/form-data" class="p-6">
             @csrf
             @method('put')
 

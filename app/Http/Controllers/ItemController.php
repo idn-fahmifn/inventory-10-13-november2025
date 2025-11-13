@@ -101,7 +101,7 @@ class ItemController extends Controller
             'penyimpanan' => ['required', 'integer', Rule::exists('rooms', 'id')],
             'kondisi' => ['required', 'in:good,broke,maintenance'],
             'harga' => ['required', 'numeric', 'min:1000', 'max:5000000000'],
-            // 'gambar' => ['mimes:png,jpg,jpeg,webp,heic,svg']
+            'gambar' => ['mimes:png,jpg,jpeg,webp,heic,svg']
         ]);
 
         // data yang harus disimpan : sesuaikan dengan database
