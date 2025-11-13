@@ -2,6 +2,31 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-slate-800 overflow-hidden shadow-sm sm:rounded-lg">
+                @if ($errors->any())
+                    <div class="bg-blue-100 border-t-4 border-red-500 rounded-b mb-4 text-red-900 px-4 py-3 shadow-md"
+                        role="alert" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 5000)">
+                        <div class="flex">
+                            <div>
+                                <p class="font-bold">Data gagal dibuat.</p>
+                                @foreach ($errors->all() as $item)
+                                    <p class="text-sm">{{ $item }}</p>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="bg-blue-100 border-t-4 border-green-500 rounded-b mb-4 text-green-900 px-4 py-3 shadow-md"
+                        role="alert" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">
+                        <div class="flex">
+                            <div>
+                                <p class="font-bold">Berhasil</p>
+                                <p class="text-sm">{{ session('success') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 <div class="p-6 md:p-8">
                     {{-- Grid utama untuk 2 kolom --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
@@ -55,13 +80,13 @@
             <div class="space-y-4">
                 <div>
                     <x-input-label value="Nama Ruangan" />
-                    <x-text-input name="nama_ruangan" value="{{ $data->room_name }}" type="text" class="mt-1 block w-full"
-                        placeholder="Contoh: Ruang Server" required />
+                    <x-text-input name="nama_ruangan" value="{{ $data->room_name }}" type="text"
+                        class="mt-1 block w-full" placeholder="Contoh: Ruang Server" required />
                 </div>
                 <div>
                     <x-input-label value="Kode Ruangan" />
-                    <x-text-input name="kode_ruangan" value="{{ $data->room_code }}" type="number" class="mt-1 block w-full"
-                        placeholder="Contoh: 123 oke" required />
+                    <x-text-input name="kode_ruangan" value="{{ $data->room_code }}" type="number"
+                        class="mt-1 block w-full" placeholder="Contoh: 123 oke" required />
                 </div>
 
 

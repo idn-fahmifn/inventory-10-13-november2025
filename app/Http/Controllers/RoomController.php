@@ -84,7 +84,7 @@ class RoomController extends Controller
         $data = Room::findOrFail($id);
         $request->validate([
             'nama_ruangan' => ['required', 'string', 'min:5', 'max:30'],
-            'kode_ruangan' => ['required', 'numeric'],
+            'kode_ruangan' => ['required', 'numeric', 'unique:rooms,room_code,' .$data->id],
             'penanggung_jawab' => ['required', 'integer', Rule::exists('users', 'id')],
             'deskripsi' => ['required']
         ]);
@@ -98,7 +98,7 @@ class RoomController extends Controller
         ];
 
         $data->update($simpan);
-        return redirect()->route('ruangan.index')->with('success', 'Ruangan berhasil ditambahkan');
+        return redirect()->route('ruangan.show', $data->slug)->with('success', 'Ruangan berhasil diubah');
     }
 
     /**
