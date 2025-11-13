@@ -106,7 +106,7 @@
                     <div>
                         <x-input-label value="Nama Barang" />
                         <x-text-input name="nama_barang" type="text" class="mt-1 block w-full"
-                            placeholder="Contoh: Ruang Server" required />
+                            placeholder="Contoh: Server Cisco" required />
                     </div>
                     <div>
                         <x-input-label value="Kode Barang" />
@@ -116,7 +116,7 @@
 
                     <div>
                         <x-input-label value="Penyimpanan" />
-                        <select name="room_id" required
+                        <select name="penyimpanan" required
                             class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                             <option value="">-Pilih Tempat Penyimpanan-</option>
                             @foreach ($room as $item)
@@ -127,7 +127,7 @@
 
                     <div>
                         <x-input-label value="Kondisi Barang" />
-                        <select name="condition" required
+                        <select name="kondisi" required
                             class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm">
                             <option value="">-Kondisi-</option>
                             <option value="good">Baik</option>
@@ -147,9 +147,6 @@
                         <x-text-input name="gambar" accept="image/*" type="file" class="mt-1 block w-full border p-4 border-dotted"
                             placeholder="Contoh: 30000" required />
                     </div>
-
-
-
                 </div>
 
                 <div class="mt-6 flex justify-end gap-3">
