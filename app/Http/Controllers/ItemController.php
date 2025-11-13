@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
+use App\Models\Room;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -11,7 +13,9 @@ class ItemController extends Controller
      */
     public function index()
     {
-        //
+        $data = Item::paginate(10);
+        $room = Room::all();
+        return view('item.index', compact('data', 'room'));
     }
 
     /**
