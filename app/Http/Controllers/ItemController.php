@@ -52,16 +52,15 @@ class ItemController extends Controller
             'room_id' => $request->input('penyimpanan'),
             'condition' => $request->input('kondisi'),
             'price' => $request->input('harga'),
-            'slug' => Str::slug($request->input('nama_barang').Carbon::now()->format('Ymdhis'))
+            'slug' => Str::slug($request->input('nama_barang') . Carbon::now()->format('Ymdhis'))
         ];
 
         // untuk gambar : 
-        if($request->hasFile('gambar'))
-        {
+        if ($request->hasFile('gambar')) {
             $img = $request->file('gambar');
             $path = 'public/images/items';
             $ext = $img->getClientOriginalExtension();
-            $nama = 'image_item_'.Carbon::now()->format('Ymdhis').'.'.$ext;
+            $nama = 'image_item_' . Carbon::now()->format('Ymdhis') . '.' . $ext;
             $simpan['image'] = $nama;
             $img->storeAs($path, $nama);
         }
@@ -97,7 +96,7 @@ class ItemController extends Controller
         $data = Item::findOrFail($id);
         $request->validate([
             'nama_barang' => ['required', 'string', 'min:5', 'max:30'],
-            'kode_barang' => ['required', 'numeric', 'unique:items,item_code,'.$data->id],
+            'kode_barang' => ['required', 'numeric', 'unique:items,item_code,' . $data->id],
             'penyimpanan' => ['required', 'integer', Rule::exists('rooms', 'id')],
             'kondisi' => ['required', 'in:good,broke,maintenance'],
             'harga' => ['required', 'numeric', 'min:1000', 'max:5000000000'],
@@ -112,22 +111,20 @@ class ItemController extends Controller
             'room_id' => $request->input('penyimpanan'),
             'condition' => $request->input('kondisi'),
             'price' => $request->input('harga'),
-            'slug' => Str::slug($request->input('nama_barang').Carbon::now()->format('Ymdhis'))
+            'slug' => Str::slug($request->input('nama_barang') . Carbon::now()->format('Ymdhis'))
         ];
 
-        if($request->hasFile('gambar'))
-        {
+        if ($request->hasFile('gambar')) {
 
-            $old = 'storage/images/items/'.$data->image;
-            if($data->image && Storage::exists($old))
-            {
+            $old = 'public/images/items/' . $data->image;
+            if ($data->image && Storage::exists($old)) {
                 Storage::delete($old);
             }
 
             $img = $request->file('gambar');
             $path = 'public/images/items';
             $ext = $img->getClientOriginalExtension();
-            $nama = 'image_item_'.Carbon::now()->format('Ymdhis').'.'.$ext;
+            $nama = 'image_item_' . Carbon::now()->format('Ymdhis') . '.' . $ext;
             $simpan['image'] = $nama;
             $img->storeAs($path, $nama);
         }
@@ -139,8 +136,23 @@ class ItemController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $data = Item::find($id);
+        $old = 'public/images/items/' . $data->image;
+        if ($data->image && Storage::exists($old)) {
+            Storage::delete($old);
+        }
+        $data->delete();
+        return redirect()->route('barang.index')->with('success', 'Barang berhasil dihapus');
+
     }
 }
+
+
+// User : 
+// 1. routing untuk user 
+// - buat controller -> PetugasController
+// - function data barang di PetugasController
+
+// 2. Copas ui dari admin

@@ -26,6 +26,7 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(functio
 Route::prefix('petugas')->middleware(['auth', 'verified'])->group(function () {
     // admin Dashboard
     Route::get('dashboard', [DashboardController::class, 'petugas'])->name('dashboard.petugas');
+    
 });
 
 
