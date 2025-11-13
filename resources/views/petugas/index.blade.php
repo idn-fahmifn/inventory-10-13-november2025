@@ -64,13 +64,34 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                            <tr>
-                                <td colspan="4"
-                                    class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">
-                                    Belum ada data petugas.
-                                </td>
-                            </tr>
-                            {{-- Loop data ruangan akan masuk di sini --}}
+                            @forelse ($data as $item)
+                                <tr>
+                                    <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
+                                        {{ $item->name }}
+                                    </td>
+                                     <td class="px-6 py-4 text-gray-500 dark:text-gray-400">
+                                        {{ $item->email }}
+                                    </td>
+                                     <td class="px-6 py-4">
+                                        @switch($item->is_active)
+                                            @case(1)
+                                                <span class="bg-green-500 p-1 text-xs rounded-md">Petugas Active</span>
+                                                @break
+                                            @case(0)
+                                                <span class="bg-gray-500 p-1 text-xs rounded-md">Petugas Tidak Aktif</span>
+                                                @break
+                                            @default
+                                        @endswitch
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="4"
+                                        class="px-6 py-4 text-center text-sm italic text-gray-500 dark:text-gray-400">
+                                        Belum ada data petugas.
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

@@ -63,7 +63,8 @@ class ProfileController extends Controller
     // function data petugas
     public function index()
     {
-        return view('petugas.index');
+        $data = User::where('is_admin', false)->paginate(2);
+        return view('petugas.index', compact('data'));
     }
 
     public function store(Request $request)
