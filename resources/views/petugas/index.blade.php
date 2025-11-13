@@ -32,7 +32,17 @@
                     </div>
                 @endif
 
-
+                @if (session('success'))
+                    <div class="bg-blue-100 border-t-4 border-green-500 rounded-b mb-4 text-green-900 px-4 py-3 shadow-md"
+                        role="alert" x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)">
+                        <div class="flex">
+                            <div>
+                                <p class="font-bold">Berhasil</p>
+                                <p class="text-sm">{{ session('success') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                @endif
 
                 <div class="overflow-x-auto">
                     {{-- Tabel untuk menampilkan data ruangan (kosong) --}}

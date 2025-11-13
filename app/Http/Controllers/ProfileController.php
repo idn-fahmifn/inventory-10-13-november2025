@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,7 +82,9 @@ class ProfileController extends Controller
             'password' => Hash::make('12345678') //password default
         ];
 
-        return $simpan;
+        User::create($simpan);
+        return redirect()->route('petugas.index')->with('success', 'Data berhasil disimpan');
+
     }
 
 }
