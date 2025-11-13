@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ItemController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +16,10 @@ Route::prefix('admin')->middleware(['auth', 'verified', 'admin'])->group(functio
     Route::get('dashboard', [DashboardController::class, 'admin'])->name('dashboard');
     Route::get('petugas', [ProfileController::class, 'index'])->name('petugas.index');
     Route::post('petugas', [ProfileController::class, 'store'])->name('petugas.store');
+
+    // room
+    Route::resource('ruangan', RoomController::class);
+    Route::resource('barang', ItemController::class);
 });
 
 // Route Petugas.
